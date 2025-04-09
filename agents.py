@@ -1,22 +1,24 @@
 # agents.py
-import ollama
-from tools import get_weather  # Assuming this is in a separate file named tools.py
-
+from transformers import pipeline
+from tools import get_weather
 class DestinationAgent:
     def research(self, location):
-        prompt = f"Provide a brief overview of {location} for a traveler, including 3 key attractions."
-        response = ollama.chat(model="llama3.2", messages=[{"role": "user", "content": prompt}])
-        return response["message"]["content"]
+        return (
+            f"{location}, a notable destination, offers unique experiences. Key attractions include:\n"
+            "1. Famous Landmark\n2. Cultural Site\n3. Scenic Spot"  # Placeholder; replace with my real response
+        )
 
 class ActivityAgent:
+    def __init__(self):
+        self.generator = pipeline("text-generation", model="gpt2", max_length=100)
+
     def plan_activities(self, location, days, preferences, destination_info):
         prompt = (
-            f"Based on this info about {location}: '{destination_info}', "
-            f"plan a {days}-day itinerary for someone who likes {preferences}. "
-            f"List one activity per day."
+            f"Based on: '{destination_info}', plan a {days}-day itinerary for {location} "
+            f"for someone who likes {preferences}. List one activity per day."
         )
-        response = ollama.chat(model="llama3.2", messages=[{"role": "user", "content": prompt}])
-        return response["message"]["content"]
+        result = self.generator(prompt)[0]["generated_text"]
+        return result.split(prompt)[-1].strip()
 
 class OrchestratorAgent:
     def __init__(self):
@@ -24,16 +26,9 @@ class OrchestratorAgent:
         self.activity_agent = ActivityAgent()
 
     def generate_itinerary(self, location, days, preferences):
-        # Step 1: Get destination info
         destination_info = self.destination_agent.research(location)
-        
-        # Step 2: Get weather (tool use)
         weather = get_weather(location)
-        
-        # Step 3: Plan activities
         activities = self.activity_agent.plan_activities(location, days, preferences, destination_info)
-        
-        # Step 4: Compile itinerary
         itinerary = (
             f"Travel Itinerary for {location}\n"
             f"Duration: {days} days\n"
