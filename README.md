@@ -1,4 +1,4 @@
-# ✈️ Travel Assistant
+# ✈️ Flight Assistant
 
 A **Python-based travel planner** built with **Streamlit** that allows users to **search**, **book**, **cancel**, and **monitor** real-time flights. It integrates with **AviationStack** for flight data and **WeatherAPI.com** for weather updates. All bookings are stored in **SQLite** for persistent access.
 
@@ -6,23 +6,23 @@ A **Python-based travel planner** built with **Streamlit** that allows users to 
 
 ## 🚀 Features
 
-- 🔍 **Search Flights**  
+-  **Search Flights**  
   Find real-time flights between cities using the AviationStack API.
 
-- 🛫 **Book Flights**  
+-  **Book Flights**  
   Select a flight, enter passenger details, and receive a unique ticket ID.
 
-- ❌ **Cancel Bookings**  
+-  **Cancel Bookings**  
   Remove bookings easily using a booking ID.
 
-- 🛰 **Monitor Flights**  
+-  **Monitor Flights**  
   Track live flight status, destination weather, and potential delays.
 
-- 📡 **Real-Time API Integration**  
+-  **Real-Time API Integration**  
   - AviationStack for live flight data  
   - WeatherAPI.com for up-to-date weather info
 
-- 💾 **Persistent Storage**  
+-  **Persistent Storage**  
   All bookings are saved in an **SQLite database**.
 
 ---
@@ -40,7 +40,7 @@ Enter both keys in the **Streamlit sidebar** to enable full functionality.
 
 ## 💻 Usage
 
-### ▶️ Run the Application
+###  Run the Application
 
 ```bash
 streamlit run main.py
@@ -50,7 +50,7 @@ streamlit run main.py
 
 ---
 
-### 🔑 Enter API Keys
+###  Enter API Keys
 
 Use the **sidebar** to input your:
 
