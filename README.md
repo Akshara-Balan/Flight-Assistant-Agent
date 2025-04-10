@@ -33,13 +33,16 @@ Opens at http://localhost:8501 in your browser.
 
     In the sidebar, input your AviationStack and WeatherAPI.com API keys.
 
-# Features:
+* Features:
 
 Search Flights: Select departure and destination cities, click "Search" to view available flights.
 
 Book Flight:
+
         * Choose cities and seat type (Economy/Business), click "Find Flights".
+
         * Select a flight from the list, click "Proceed to Book".
+
         * Enter your name and email, click "Confirm Booking" to save and get a ticket ID.
     
 Cancel Booking: Enter a booking ID, click "Cancel".
