@@ -1,5 +1,5 @@
 # agents.py
-from tools import get_db_connection, lookup_flights, lookup_db_flights, find_connecting_flights, get_weather, generate_ticket_id
+from tools import get_db_connection, lookup_flights, get_weather, generate_ticket_id
 
 class PreferenceAgent:
     def gather_preferences(self, departures, destinations):
@@ -7,15 +7,8 @@ class PreferenceAgent:
 
 class FlightLookupAgent:
     def search_flights(self, preferences, flight_api_key):
-        api_flights = lookup_flights(preferences["departure"], preferences["destination"], flight_api_key)
-        db_flights = lookup_db_flights(preferences["departure"], preferences["destination"])
-        direct_flights = api_flights + db_flights
-        
-        connecting = []
-        if not direct_flights:
-            connecting = find_connecting_flights(preferences["departure"], preferences["destination"])
-        
-        return {"direct": direct_flights, "connecting": connecting}
+        flights = lookup_flights(preferences["departure"], preferences["destination"], flight_api_key)
+        return {"direct": flights, "connecting": []}
 
 class FlightBookingAgent:
     def book_flight(self, flight, user_id, seat_type, passenger_name, passenger_email, weather_api_key):
@@ -24,8 +17,9 @@ class FlightBookingAgent:
         weather = get_weather(flight["destination"], weather_api_key)
         ticket_id = generate_ticket_id()
         
-        c.execute("INSERT INTO bookings (user_id, flight_id, seat_type, passenger_name, passenger_email, ticket_id) VALUES (?, ?, ?, ?, ?, ?)",
-                  (user_id, flight["id"], seat_type, passenger_name, passenger_email, ticket_id))
+        # Store departure and destination along with other details
+        c.execute("INSERT INTO bookings (user_id, flight_id, seat_type, passenger_name, passenger_email, ticket_id, departure, destination) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                  (user_id, flight["id"], seat_type, passenger_name, passenger_email, ticket_id, flight["departure"], flight["destination"]))
         booking_id = c.lastrowid
         conn.commit()
         conn.close()
@@ -60,12 +54,19 @@ class FlightMonitoringAgent:
         
         booking = dict(zip([desc[0] for desc in c.description], booking))
         flight_id = booking["flight_id"]
-        flights = lookup_flights("", "", flight_api_key) + lookup_db_flights("", "")
+        departure = booking["departure"]
+        destination = booking["destination"]
+        
+        # Fetch flights for this specific route
+        flights = lookup_flights(departure, destination, flight_api_key)
         flight = next((f for f in flights if f["id"] == flight_id), None)
         
         if not flight:
+            # Fallback: Use stored booking data if API doesn't return the flight
+            weather = get_weather(destination, weather_api_key)
             conn.close()
-            return "Flight data unavailable."
+            return f"Flight {flight_id} from {departure} to {destination} (real-time data unavailable) " \
+                   f"- Status: Unknown, Weather & Delay Risk: {weather}, Ticket ID: {booking['ticket_id']}"
         
         status = flight.get("status", "Unknown")
         weather = get_weather(flight["destination"], weather_api_key)

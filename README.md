@@ -1,50 +1,47 @@
-This project is a console-based AI-powered travel assistant, designed to simulate a user-friendly agent that helps travelers search for flights, book, monitor, and cancel them based on preferences.
+# Travel Assistant
 
-🧭 Summary of What the Project Does
-💡 Purpose:
+A Python-based web application built with Streamlit to search, book, cancel, and monitor real-time flights using the AviationStack API and WeatherAPI.com. This tool allows users to plan travel efficiently with a simple interface, storing bookings in SQLite for persistence.
 
-To provide an interactive travel planning experience where a user can:
+ ## Features
 
-    Look up available flights to a destination
+    Search Flights: Find real-time flights between cities using AviationStack.
+    
+    Book Flights: Select a flight, enter passenger details, and receive a unique ticket ID.
+    
+    Cancel Bookings: Remove bookings by ID.
+    
+    Monitor Flights: Check flight status, destination weather, and delay risks.
+    
+    Real-Time Data: Integrates AviationStack for flights and WeatherAPI.com for weather updates.
+    
+    Persistent Storage: Saves bookings in an SQLite database.
 
-    Set preferences (like time of day, seat type)
+## Configuration
 
-    Book a flight
+    API Keys: You’ll need to provide your AviationStack and WeatherAPI.com API keys via the Streamlit sidebar when running the app. No environment variables are required.
 
-    Cancel a booking
+## Usage
 
-    Monitor the status and weather at the destination
+* Run the Application: Start the Streamlit server:
+    bash
+```sh
+    streamlit run main.py
+```
+    Opens at http://localhost:8501 in your browser.
 
-🧱 Architecture:
+* Enter API Keys:
 
-    Modular Agent Design: Each task is handled by a separate agent class:
+    In the sidebar, input your AviationStack and WeatherAPI.com API keys.
 
-        FlightLookupAgent: Searches flights
+# Features:
 
-        FlightBookingAgent: Books flights
+    Search Flights: Select departure and destination cities, click "Search" to view available flights.
 
-        FlightCancellationAgent: Cancels bookings
-
-        FlightMonitoringAgent: Tracks status/weather
-
-        PreferenceAgent: Gathers user preferences
-
-        OrchestratorAgent: Coordinates everything through user interaction
-
-    Data Layer: Static flight data and bookings are held in data.py.
-
-    Tool Layer: Utility functions like weather fetching and flight lookup are in tools.py.
-
-🧠 Features:
-
-    Simulates real-world travel agent behavior
-
-    Input-driven preferences (time, seat)
-
-    Bookings and cancellations stored in memory
-
-    Mock weather data integration
-
-    Status updates based on simple conditions (price = delayed or not)
-
-    Clean CLI-based user interaction
+    Book Flight:
+        * Choose cities and seat type (Economy/Business), click "Find Flights".
+        * Select a flight from the list, click "Proceed to Book".
+        * Enter your name and email, click "Confirm Booking" to save and get a ticket ID.
+    
+    Cancel Booking: Enter a booking ID, click "Cancel".
+    
+    Monitor Flight: Enter a booking ID, click "Monitor" to see status and weather.
