@@ -48,7 +48,6 @@ streamlit run main.py
 
 > This will open the app at: [http://localhost:8501](http://localhost:8501)
 
----
 
 ###  Enter API Keys
 
@@ -59,7 +58,6 @@ Use the **sidebar** to input your:
 
 These keys are required for fetching live **flight** and **weather** data.
 
----
 
 ## 🧭 Explore the Features
 
@@ -89,5 +87,4 @@ These keys are required for fetching live **flight** and **weather** data.
   - Destination weather  
   - Any delay alerts
 
----
 
