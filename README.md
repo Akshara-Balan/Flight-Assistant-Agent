@@ -1,50 +1,93 @@
-# Travel Assistant
+# ✈️ Travel Assistant
 
-A Python-based web application built with Streamlit to search, book, cancel, and monitor real-time flights using the AviationStack API and WeatherAPI.com. This tool allows users to plan travel efficiently with a simple interface, storing bookings in SQLite for persistence.
+A **Python-based travel planner** built with **Streamlit** that allows users to **search**, **book**, **cancel**, and **monitor** real-time flights. It integrates with **AviationStack** for flight data and **WeatherAPI.com** for weather updates. All bookings are stored in **SQLite** for persistent access.
 
- ## Features
+---
 
-Search Flights: Find real-time flights between cities using AviationStack.
-    
-Book Flights: Select a flight, enter passenger details, and receive a unique ticket ID.
-    
-Cancel Bookings: Remove bookings by ID.
-    
-Monitor Flights: Check flight status, destination weather, and delay risks.
-    
-Real-Time Data: Integrates AviationStack for flights and WeatherAPI.com for weather updates.
-    
-Persistent Storage: Saves bookings in an SQLite database.
+## 🚀 Features
 
-## Configuration
+- 🔍 **Search Flights**  
+  Find real-time flights between cities using the AviationStack API.
 
-API Keys: You’ll need to provide your AviationStack and WeatherAPI.com API keys via the Streamlit sidebar when running the app. No environment variables are required.
+- 🛫 **Book Flights**  
+  Select a flight, enter passenger details, and receive a unique ticket ID.
 
-## Usage
+- ❌ **Cancel Bookings**  
+  Remove bookings easily using a booking ID.
 
-* Run the Application: Start the Streamlit server:
-    bash
-```sh
-    streamlit run main.py
+- 🛰 **Monitor Flights**  
+  Track live flight status, destination weather, and potential delays.
+
+- 📡 **Real-Time API Integration**  
+  - AviationStack for live flight data  
+  - WeatherAPI.com for up-to-date weather info
+
+- 💾 **Persistent Storage**  
+  All bookings are saved in an **SQLite database**.
+
+---
+
+## 🔧 Configuration
+
+> No need for `.env` files — API keys are entered directly in the app.
+
+- **AviationStack API Key**  
+- **WeatherAPI.com API Key**
+
+Enter both keys in the **Streamlit sidebar** to enable full functionality.
+
+---
+
+## 💻 Usage
+
+### ▶️ Run the Application
+
+```bash
+streamlit run main.py
 ```
-Opens at http://localhost:8501 in your browser.
 
-* Enter API Keys:
+> This will open the app at: [http://localhost:8501](http://localhost:8501)
 
-    In the sidebar, input your AviationStack and WeatherAPI.com API keys.
+---
 
-* Features:
+### 🔑 Enter API Keys
 
-Search Flights: Select departure and destination cities, click "Search" to view available flights.
+Use the **sidebar** to input your:
 
-Book Flight:
+- `AviationStack API Key`
+- `WeatherAPI.com API Key`
 
-        * Choose cities and seat type (Economy/Business), click "Find Flights".
+These keys are required for fetching live **flight** and **weather** data.
 
-        * Select a flight from the list, click "Proceed to Book".
+---
 
-        * Enter your name and email, click "Confirm Booking" to save and get a ticket ID.
-    
-Cancel Booking: Enter a booking ID, click "Cancel".
-    
-Monitor Flight: Enter a booking ID, click "Monitor" to see status and weather.
+## 🧭 Explore the Features
+
+### 🔍 Search Flights
+
+- Choose your **departure** and **destination** cities  
+- Click **Search** to retrieve live flight options
+
+### 🛫 Book a Flight
+
+1. After searching, select a flight from the list  
+2. Click **Proceed to Book**  
+3. Enter your **name** and **email**  
+4. Click **Confirm Booking**  
+5. Receive a **ticket ID**
+
+### ❌ Cancel a Booking
+
+- Enter your **ticket ID**  
+- Click **Cancel Booking** to remove it from the database
+
+### 🛰 Monitor a Flight
+
+- Enter your **ticket ID**  
+- View real-time:
+  - Flight status  
+  - Destination weather  
+  - Any delay alerts
+
+---
+
